@@ -28,15 +28,35 @@ function playSingleRound(playerSelection, computerSelection){
     }
 }
 
+function disableButtons() {
+    playerChoices.forEach(choice => {
+        choice.disabled = true
+    })
+}
+
+function addPlayAgainButton() {
+    const btn = document.createElement("button")
+    btn.textContent = "Play again"
+    btn.style.color = "green"
+    container.appendChild(btn)
+    btn.addEventListener("click", event => {
+        window.location.reload()  
+    })
+}
+
 playerChoices.forEach(choice => {
     choice.addEventListener("click", event => {
         if (userScore > 4) {
             resultOutput.textContent = "Congratulations you beat the computer in Rock Paper Scissors!"
             resultOutput.style.color = "red"
+            addPlayAgainButton()
+            disableButtons()
         } 
         else if (computerScore > 4) {
             resultOutput.textContent = "You just lost to a computer in Rock Paper Scissors!"
             resultOutput.style.color = "red"
+            addPlayAgainButton()
+            disableButtons()
         } 
         else {
             const result = playSingleRound(event.target.id, getComputerChoice())
